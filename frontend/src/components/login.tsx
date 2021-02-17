@@ -11,7 +11,6 @@ class Login extends Component<userProps> {
     constructor(props: userProps) {
         super(props);
         this.login = this.login.bind(this);
-        this.signUp = this.signUp.bind(this);
     }
 
     render() {
@@ -32,7 +31,7 @@ class Login extends Component<userProps> {
                                 <label>Password</label>
                                 <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
                             </div>
-                            <button type="submit" className="btn btn-primary submit">Submit</button>
+                            <button type="submit" className="btn btn-primary submit">Login</button>
                             <a type="submit" href="/register">Sign Up</a>
                         </form>
                     </div>
@@ -47,11 +46,6 @@ class Login extends Component<userProps> {
             email: (document.getElementById('exampleInputEmail1') as HTMLInputElement).value,
             password: (document.getElementById('exampleInputPassword1') as HTMLInputElement).value
         });
-    }
-
-    signUp(e: any) {
-        e.preventDefault();
-        return <Redirect to='/register' />
     }
 }
 

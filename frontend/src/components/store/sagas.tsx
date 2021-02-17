@@ -2,6 +2,7 @@ import "regenerator-runtime/runtime";
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as actions from './actions'
 import { userProfile, UserStatus } from './state';
+import { createFormData } from "./sagaHelper";
 
 function* fetchUserInfo(action: { type: string, payload: userProfile }) {
     try {
@@ -30,15 +31,7 @@ function* fetchUserInfo(action: { type: string, payload: userProfile }) {
 }
 
 function* addUser(action: { type: string, payload: userProfile }) {
-    var bodyFormData = new FormData();
-    bodyFormData.append('firstName', action.payload.firstName);
-    bodyFormData.append('lastName', action.payload.lastName);
-    bodyFormData.append('age', action.payload.age.toString());
-    bodyFormData.append('phoneNumber', action.payload.phoneNumber.toString());
-    bodyFormData.append('address', action.payload.address);
-    bodyFormData.append('email', action.payload.email);
-    bodyFormData.append('password', action.payload.password);
-    bodyFormData.append('userPic', action.payload.profilePic, action.payload.profilePic.name);
+    var bodyFormData = createFormData(action.payload);
 
     try {
         const request = {
@@ -54,10 +47,30 @@ function* addUser(action: { type: string, payload: userProfile }) {
     }
 }
 
+function* updateUser(action: { type: string, payload: userProfile }) {
+    var bodyFormData = createFormData(action.payload);
+    let data;
+
+    try {
+        const request = {
+            method: 'POST',
+            body: bodyFormData,
+        }
+        yield fetch('http://localhost:8080/updateUser', request)
+            .then((response) => response.json())
+            .then((messages) => { messages.message; data = messages.data});
+            yield put(actions.updateUserSuccess(data));
+    } catch (e) {
+        console.log(e);
+        yield put(actions.updateUserFail());
+    }
+}
+
 
 function* userSaga() {
     yield takeLatest("FETCH_USER_INFO", fetchUserInfo);
     yield takeLatest("ADD_USER", addUser);
+    yield takeLatest("UPDATE_USER", updateUser);
 }
 
 export default userSaga;

@@ -21,9 +21,10 @@ export enum UserStatus {
 export interface user {
     usersStatus: UserStatus,
     ferchUserInfoSuccess: boolean | undefined,
-    fetchUserInfoFail: boolean | undefined,
+    userUpdateSuccess: boolean | undefined,
     userInfo: userProfile,
-    userAdded?: boolean | undefined,
+    userAdded: boolean | undefined,
+    isUpdate: boolean | undefined,
 }
 
 export const initState: user = {
@@ -41,6 +42,7 @@ export const initState: user = {
     },
     usersStatus: 2,
     ferchUserInfoSuccess: undefined,
-    fetchUserInfoFail: undefined,
-    userAdded: false,
+    userAdded: undefined,
+    isUpdate: undefined,
+    userUpdateSuccess: undefined,
 }

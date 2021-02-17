@@ -1,9 +1,8 @@
 import { userProfile } from "./state"
 
-export function logOut(userID: number) {
+export function logOut() {
     return {
-      type: 'ADD_TODO',
-      payload: userID,
+      type: 'LOG_OUT',
     }
   }
 
@@ -60,7 +59,28 @@ export function logOut(userID: number) {
     }
   }
 
-  export const userActions = typeof logOut
-  || typeof fetchUserInfo
-  || typeof fetchUserInfoSuccess
-  || typeof fetchUserInfoFail
+  export function updateUser(userInfo: userProfile) {
+    return {
+      type: 'UPDATE_USER',
+      payload: userInfo,
+    }
+  }
+
+  export function updateUserSuccess(userInfo: userProfile | undefined) {
+    return {
+      type: 'UPDATE_USER_SUCCESS',
+      payload: userInfo,
+    }
+  }
+
+  export function updateUserFail() {
+    return {
+      type: 'UPDATE_USER_FAIL',
+    }
+  }
+
+  export function editUser() {
+    return {
+      type: 'EDIT_USER',
+    }
+  }

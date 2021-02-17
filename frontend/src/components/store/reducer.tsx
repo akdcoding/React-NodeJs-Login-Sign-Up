@@ -19,7 +19,7 @@ const reducer = (state: user = initState, action: any) => {
         };
         case 'FETCH_USER_INFO_FAIL': return {
             ...state,
-            fetchUserInfoFail: true,
+            ferchUserInfoSuccess: false,
         };
         case 'ADD_USER_SUCCESS': return {
             ...state,
@@ -28,6 +28,25 @@ const reducer = (state: user = initState, action: any) => {
         case 'ADD_USER_FAIL': return {
             ...state,
             userAdded: false,
+        };
+        case 'UPDATE_USER_SUCCESS': return {
+            ...state,
+            userInfo: action.payload,
+            userUpdateSuccess: true,
+            isUpdate: false,
+        };
+        case 'UPDATE_USER_FAIL': return {
+            ...state,
+            userUpdateSuccess: false,
+        };
+        case 'EDIT_USER': return {
+            ...state,
+            isUpdate: true,
+            userUpdateSuccess: undefined,
+        };
+        case 'LOG_OUT': return {
+            ...state,
+            usersStatus: 2,
         };
         default: 
             return state;

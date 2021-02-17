@@ -13,6 +13,7 @@ var connection = mysql.createPool({
     user: 'root',
     password: '',
     database: 'sampleDB',
+    multipleStatements: true,
 });
 
 const multer = require('multer');
@@ -84,6 +85,41 @@ app.post('/userSignUp',upload.single('userPic'), function (req, res) {
                 } else {
                             res.status(200).send({
                                 message: "User Added"
+                            })
+                        
+                    
+                }
+            });
+        }
+    });
+})
+
+app.post('/updateUser',upload.single('userPic'), function (req, res) {
+
+    connection.getConnection(function (error, tempConnect) {
+        if (!!error) {
+            tempConnect.release();
+            console.error(error);
+        } else {
+            console.log('Connected!');
+  
+            tempConnect.query("UPDATE `userinfo` SET `firstName`='" + req.body.firstName + "', `lastName`='" 
+            + req.body.lastName + "',`age`='"+ req.body.age + "', `phoneNumber`='"+ req.body.phoneNumber 
+            + "', `address`='"+ req.body.address + "', `email`='"+ req.body.email + "', `password`='"+ req.body.password 
+            + "', `image`='"  +  req.file.path.replace(/\\/g, "/") + "'  WHERE `userID`= " + req.body.userID + "; SELECT * FROM `userinfo` WHERE `userID`= '" + req.body.userID + "';" , function (error, rows, fields) {
+
+            tempConnect.release();
+            // userInfo = JSON.parse(JSON.stringify(rows));
+            jsonString = Object.values(rows)
+            console.log(jsonString)
+
+                if (!!error) {
+                    console.error(error);
+
+                } else {
+                            res.status(200).send({
+                                message: "User Updated",
+                                data:  jsonString[1][0],
                             })
                         
                     
