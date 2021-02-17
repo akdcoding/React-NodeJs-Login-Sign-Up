@@ -20,7 +20,7 @@ Please perform following steps as explained and in sequence
   iii. npm run start   
 9. Now open http://localhost:8080/login in the browser. You will be able to see the login page with Sign Up option.
 10. Open backend in separate terminal and run npm i.
-11. To run the backend, open backend\routes in terminal and just run **node script.js**
+11. To run the backend, open backend\routes in terminal and just run **node script.js**  
 **Do not do npm build or npm start in backend**
 12. Now we can go back to http://localhost:8080/login and register by signing up.
 13. You will be redirected to login page after registering.
